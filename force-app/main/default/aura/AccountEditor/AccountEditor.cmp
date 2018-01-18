@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    
+    <aura:attribute name="editMode" type="Boolean" default="false" />
+    <aura:attribute name="sourceRecord" type="Object" />
+    <aura:attribute name="sourceRecordFields" type="Object" />
+    <aura:attribute name="error" type="String" />
+    
+    <force:recordData aura:id="currentRecord"
+                      recordId="{!v.recordId}"
+                      fields="AccountId"
+                      targetRecord="{!v.sourceRecord}"
+                      targetFields="{!v.sourceRecordFields}"
+                      targetError="{!v.error}" />
+    
+     <lightning:card >
+         <aura:if isTrue="{!v.editMode}">
+            <lightning:recordEditForm onload="{!c.handleAccountLoaded}"
+                                      onsubmit="{!c.handleAccountSubmitted}"
+                                      onsuccess="{!c.handleAccountSaved}"
+                                      recordId="{!v.sourceRecordFields.accountId}"
+                                      objectApiName="Account">
+                
+                <lightning:messages />
+                
+                <lightning:inputField fieldName="Phone" />
+                <lightning:inputField fieldName="Rating" />
+                <lightning:inputField fieldName="Description" />
+                <lightning:button variant="brand" type="submit" name="save" label="Save" class="slds-m-top_medium"/>
+
+            </lightning:recordEditForm>
+            <aura:set attribute="else">
+                <lightning:recordViewForm recordId="{!v.sourceRecordFields.AccountId}"
+                                          objectApiName="Account">
+                   
+                    <lightning:outputField fieldName="Phone" />
+                    <lightning:outputField fieldName="Rating" />
+                    <lightning:outputField fieldName="Description" />
+                    <lightning:button variant="brand" onclick="{!c.editAccount}" name="edit" label="Edit" class="slds-m-top_medium"/>
+                </lightning:recordViewForm>
+                
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+    
+</aura:component>
