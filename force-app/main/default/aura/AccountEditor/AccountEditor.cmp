@@ -17,7 +17,7 @@
             <lightning:recordEditForm onload="{!c.handleAccountLoaded}"
                                       onsubmit="{!c.handleAccountSubmitted}"
                                       onsuccess="{!c.handleAccountSaved}"
-                                      recordId="{!v.sourceRecordFields.accountId}"
+                                      recordId="{!v.sourceRecordFields.AccountId}"
                                       objectApiName="Account">
                 
                 <lightning:messages />
